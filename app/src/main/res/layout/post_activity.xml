@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.18"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/header"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.06"
+            android:orientation="horizontal"
+            android:background="#4284F3">
+
+            <ImageButton
+                android:id="@+id/btnatras"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent_color"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0.15"
+                android:gravity="center"
+                android:src="@drawable/ic_arrow_back"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.6"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="PUBLISH"
+                android:textColor="#ffffff"
+                android:textStyle="bold"
+                android:textSize="15sp"/>
+
+            <ImageButton
+                android:id="@+id/btnadelante"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@color/transparent_color"
+                android:layout_weight="0.15"
+                android:src="@drawable/next"/>
+
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.74"
+            android:background="#ececec"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="#ffffff"
+                android:paddingLeft="12dp"
+                android:paddingTop="12dp"
+                android:paddingRight="12dp">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:paddingLeft="10dp"
+                    android:singleLine="true"
+                    android:background="@drawable/edit_text_style"
+                    android:layout_marginBottom="5dp"
+                    android:textSize="16sp"
+                    android:inputType="textEmailAddress"
+                    android:hint="Title"
+                    android:textColor="#4284F3"
+                    android:textColorHint="#4284F3"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:textSize="16sp"
+                    android:paddingLeft="10dp"
+                    android:background="@drawable/edit_text_style"
+                    android:paddingTop="5dp"
+                    android:hint="Texto/publicación"
+                    android:gravity="top|left"
+                    android:textColor="#4284F3"
+                    android:textColorHint="#4284F3"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_text_style"
+                    android:singleLine="true"
+                    android:paddingLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:textSize="16sp"
+                    android:textColorHint="#4284F3"
+                    android:textColor="#4284F3"
+                    android:hint="Add wallet direction for donations"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp" />
+
+                <Button
+                    android:id="@+id/addfile"
+                    android:layout_width="match_parent"
+                    android:drawableRight="@drawable/ic_add_add"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="Add file"
+                    android:textColor="@color/white"
+                    android:paddingLeft="5dp"
+                    android:gravity="left|center"
+                    android:paddingRight="5dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#4284F3"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                <ListView
+                    android:id="@+id/listView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</LinearLayout>

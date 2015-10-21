@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">Bloockgle</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="ABOUTUS">ABOUT US</string>
+    <string name="PAYMENT">PAYMENT</string>
+
+    <string name="youhavetopay">You have to Pay </string>
+    <string name="youhavetopay1"> 0,03 BTC</string>
+    <string name="youhavetopay2"> for uploading</string>
+    <string name="youhavetopay3"> 230K</string>
+
+    <string name="add">Add file</string>
+
+    <string name="textview">Es necesario realizar un pago para que la informacion quede registrada en el BlockChain. Este pago depende de lo que ocupe esa informacion que se indexa.</string>
+    <string name="textview1">Cuando se reciba el pago se hara automaticamente la publicacion.</string>
+    <string name="textview2">X2fdAasSsixubiUBub0823jsaoon</string>
+    <string name="textview3">Receibed (btc):</string>
+    <string name="textview4">0,01 / 0,03</string>
+
+    <string name="whatisblockgle">What is Bloockgle?</string>
+    <string name="whatisblockgle1">Bloockgle es la herramienta definitiva para hacer publicaciones en la red.</string>
+    <string name="whatisblockgle2">Cada vez que se hace una insercion la informacion se almacena en la
+    mayor y mas segura base de datos del mundo, el BlockChain. Creado
+    para ser utilizado por el Bitcoin, una de las mayores alternativas para
+    crear un sistema economico diferente.
+    BlockChain es un sistema descentralizado repartido por todo el
+    mundo, las publicaciones que se hacen en el son permanentes, no
+    pueden ser modificadas o eliminadas por ninguna persona, entidad o
+    conjunto de las mismas.</string>
+
+    <string name="whoweare">Who we are?</string>
+    <string name="whoweareentropy">We are Entropy Factory.</string>
+    <string name="whoweareentropy1">Somos una comunidad de personas vinculadas con el mundo virtual que habita en un entorno rural.</string>
+    <string name="whoweareentropy2">Nuestro objetivo es mejorar el mundo, desarrollando herramientas que resuelvan necesidades reales, huyendo al mismo tiempo del sistema
+    socio y economico impuesto y que se presume como real.</string>
+    <string name="whoweareentropy3">www.entropy-factory.com</string>
+
+</resources>
