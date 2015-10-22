@@ -17,20 +17,37 @@ import android.widget.TextView;
 
 import net.glxn.qrgen.android.QRCode;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
+import java.util.HashMap;
 
 /**
  * Created by Mr.Marshall on 07/10/2015.
  */
-public class PaymentActivity extends Activity {
+public class PaymentActivity extends Activity implements CheckLauncher.CheckHolder {
 
 //    TextView pay, filesize, coinsreceived, textonegrita, receibedbtc;
 //    TextView tv1, tv2, tv3, address;
+
+    private String address;
+    private double price;
+    private HashMap<String, String> data;
+    private TextView coinsreceived;
+    private CheckLauncher checkLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.payment_activity);
+
+        Bundle bundle = getIntent().getExtras();
+        address = bundle.getString("address");
+        price = bundle.getDouble("price");
+        data = (HashMap<String, String>) bundle.getSerializable("data");
+        checkLauncher = new CheckLauncher(new CheckApiRequest(data, address), PaymentActivity.this);
+        checkLauncher.start();
 
 //        String font_path_1 = "font/exobold.ttf";
 //        Typeface TF1 = Typeface.createFromAsset(getAssets(),font_path_1);
@@ -51,8 +68,7 @@ public class PaymentActivity extends Activity {
         arrawpayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PaymentActivity.this, PostActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
 
@@ -60,8 +76,7 @@ public class PaymentActivity extends Activity {
         btncancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PaymentActivity.this, PostActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
 
@@ -70,7 +85,7 @@ public class PaymentActivity extends Activity {
             @Override
             public void onClick(View v) {
                 ImageView newQrCode = new ImageView(PaymentActivity.this);
-                newQrCode.setImageBitmap(getQrBitmap("asdfghjkl", 100));
+                newQrCode.setImageBitmap(getQrBitmap());
                 newQrCode.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                 AlertDialog.Builder alertDialogBuider = new AlertDialog.Builder(PaymentActivity.this);
                 alertDialogBuider.setView(newQrCode);
@@ -83,22 +98,39 @@ public class PaymentActivity extends Activity {
                 alertDialogBuider.show();
             }
         });
-        qrCode.setImageBitmap(getQrBitmap("asdfghjkl", 100));
+        qrCode.setImageBitmap(getQrBitmap());
         TextView pay = (TextView) findViewById(R.id.pay1);
-        TextView filesize = (TextView) findViewById(R.id.filesize);
+        pay.setText(String.format("%.8f", price) + " btc");
+        TextView contentsize = (TextView) findViewById(R.id.contentsize);
         TextView address = (TextView) findViewById(R.id.address);
-        TextView coinsreceived = (TextView) findViewById(R.id.coinsreceived);
+        address.setText(this.address);
+        coinsreceived = (TextView) findViewById(R.id.coinsreceived);
+        coinsreceived.setText(String.format("%.8f / %.8f",0.0, price));
 
     }
 
-    private Bitmap getQrBitmap(String address, long satoshis){
-        File qrFile = QRCode.from(getBtcUri(address, satoshis)).withSize(750,750).file();
+    public int getContentSize(){
+        int transactions = (int) Math.ceil(price/0.001);
+        return transactions*40;
+    }
+
+    public String createUri(String address, double price){
+        String s = "bitcoin:" + address + "?amount" + price + "&label=Bloockgle";
+        return  s;
+    }
+
+    private Bitmap getQrBitmap(){
+        File qrFile = QRCode.from(createUri(address, price)).withSize(750,750).file();
         return BitmapFactory.decodeFile(qrFile.getAbsolutePath());
     }
 
-    private String getBtcUri(String address, long satoshis){
-        String s = "bitcoin:" + address + "?amount=" + ((double) satoshis) / 1e8d + "&label=Bloockgle";
-        return s;
-
+    @Override
+    public void check(JSONObject jsonObject) throws JSONException {
+        double received = jsonObject.getDouble("btc");
+        String paymentStatus = jsonObject.getString("payment");
+        coinsreceived.setText(String.format("%.8f / %.8f",received, price));
+        if (paymentStatus.equals("ok")){
+            checkLauncher.cancel();
+        }
     }
 }

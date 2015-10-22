@@ -57,7 +57,6 @@ public class MainActivity extends Activity {
             }
         });
 
-
         ImageButton imageButton = (ImageButton) findViewById(R.id.btnpublish);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,7 +73,7 @@ public class MainActivity extends Activity {
                 startActivity(intent);
             }
         });
-        new ApiRequester(new GetTimeLineRequest(), new SilentApiHandler(){
+        new ApiRequester(new GetTimeLineRequest(1), new SilentApiHandler(){
 
             @Override
             public void onOkResponse(JSONObject jsonObject) throws JSONException {
@@ -99,7 +98,7 @@ public class MainActivity extends Activity {
             new ApiRequester(new GetDataRequest(reference), new SilentApiHandler() {
                 @Override
                 public void onOkResponse(JSONObject jsonObject) throws JSONException {
-                    Log.e("error", "ERROR kjlhlj");
+                    Log.e("error", "ERROR");
                     TimeLineItem timeLineItem = new TimeLineItem(jsonObject, reference);
                     Log.e("error", "ERROR");
                     initializedListView(timeLineItem);

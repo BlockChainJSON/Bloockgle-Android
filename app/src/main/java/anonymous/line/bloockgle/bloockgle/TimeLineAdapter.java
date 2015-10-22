@@ -196,7 +196,6 @@ public class TimeLineAdapter extends ArrayAdapter<TimeLineItem> {
         return view;
     }
 
-
     //La clase ya es privada, así que las variables que tenemos on public solo se pueden utilizar dentro de este metodo private
     private class ViewHolder {
         public TextView title;

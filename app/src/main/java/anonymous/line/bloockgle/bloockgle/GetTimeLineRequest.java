@@ -8,20 +8,17 @@ import java.util.Map;
  */
 public class GetTimeLineRequest extends BasicApiRequest {
 
-    private String action;
+    private String action = "findword";
     private String word;
-
-    public GetTimeLineRequest() {
-        this.action = "findword";
-    }
-
-    public GetTimeLineRequest(String action) {
-        this.action = action;
-    }
+    private int page = 1;
 
     public GetTimeLineRequest (String action, String word){
         this.word = word;
         this.action = action;
+    }
+
+    public GetTimeLineRequest (int page){
+        this.page = page;
     }
 
     @Override
@@ -31,6 +28,7 @@ public class GetTimeLineRequest extends BasicApiRequest {
             params.put("find", word);
             params.put("action", "findword");
         } else {
+            params.put("page", String.valueOf(page));
             params.put("action", action);
         }
 

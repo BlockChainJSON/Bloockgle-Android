@@ -2,6 +2,8 @@ package anonymous.line.bloockgle.bloockgle;
 
 import com.chip_chap.services.asynchttp.net.util.ApiRequest;
 
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,6 +15,11 @@ public class BasicApiRequest implements ApiRequest {
     @Override
     public String getMethod() {
         return POST;
+    }
+
+    public JSONObject buildJSON(HashMap<String, String> hashMap){
+        JSONObject jsonObject = new JSONObject(hashMap);
+        return jsonObject;
     }
 
     @Override

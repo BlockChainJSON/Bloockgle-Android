@@ -12,13 +12,14 @@ import java.util.Iterator;
  */
 public class TimeLineItem  {
 
-    private String title, address, file;
+    private Type type;
+    private String title, address;
     private HashMap<String, String> content;
 
-    public TimeLineItem (String title, String address, String file){
+    public TimeLineItem (String title, String address, Type type){
         this.title = title;
         this.address = address;
-        this.file = file;
+        this.type = type;
     }
 
     public TimeLineItem (JSONObject jsonObject, String reference){
@@ -50,12 +51,10 @@ public class TimeLineItem  {
         return address;
     }
 
-    public String getFile() {
-        return file;
-    }
 
-    public FileType getFileExtension(){
-        return null;
+
+    public Type getType(){
+        return type;
     }
 
 }

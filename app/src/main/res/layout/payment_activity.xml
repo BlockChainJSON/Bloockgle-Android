@@ -118,7 +118,7 @@
                             android:textColor="#6F6F6E"/>
 
                         <TextView
-                            android:id="@+id/filesize"
+                            android:id="@+id/contentsize"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/youhavetopay3"
