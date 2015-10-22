@@ -193,7 +193,6 @@ public class TimeLineAdapter extends ArrayAdapter<TimeLineItem> {
 //
 //
 //        });
-
         return view;
     }
 
