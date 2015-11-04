@@ -1,12 +1,19 @@
 package anonymous.line.bloockgle.bloockgle;
 
+import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.List;
 
 /**
@@ -34,24 +41,6 @@ public class DetailPanel extends LinearLayout {
     private void initialize() {
         setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
         setOrientation(VERTICAL);
-
-        /*for (int x = 0; x < 2; x++) {
-            final String key = "Key " + x;
-            final String value = "Value " + x;
-            Pair<String, String> pair = new Pair<String, String>() {
-                @Override
-                public String getKey() {
-                    return key;
-                }
-
-                @Override
-                public String getValue() {
-                    return value;
-                }
-            };
-
-            addDetail(pair);
-        }*/
     }
 
     private int getPixels(float dp) {
@@ -59,7 +48,7 @@ public class DetailPanel extends LinearLayout {
         return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
     }
 
-    public void addDetail(CharSequence detail, CharSequence value, boolean singleLine) {
+    public TextView addDetail(CharSequence detail, CharSequence value, boolean singleLine) {
         LinearLayout container = new LinearLayout(getContext());
         container.setOrientation(HORIZONTAL);
         if (!singleLine) {
@@ -77,6 +66,7 @@ public class DetailPanel extends LinearLayout {
         ValueTextView valueView = new ValueTextView(getContext());
         valueView.setLayoutParams(textParams);
         valueView.setText(value);
+
         if (singleLine) {
             valueView.setPadding(getPixels(4), 0, 0, 0);
         }
@@ -85,14 +75,33 @@ public class DetailPanel extends LinearLayout {
         container.addView(valueView);
 
         addView(container);
+
+        return valueView;
     }
 
-    public void addDetail(CharSequence detail, CharSequence value) {
-        addDetail(detail, value, true);
+    public void setOpennableData(final Activity activity, TextView textView, final String data) {
+        textView.setSingleLine(true);
+        textView.setMaxLines(1);
+        textView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent launchIntent = new Intent(Intent.ACTION_VIEW);
+                launchIntent.setData(Uri.parse(data));
+                try {
+                    activity.startActivity(launchIntent);
+                } catch (ActivityNotFoundException e) {
+                    Toast.makeText(activity, "App not found!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
-    public void addDetail(Pair<? extends CharSequence, ? extends CharSequence> pair) {
-        addDetail(pair.getKey(), pair.getValue());
+    public TextView addDetail(CharSequence detail, CharSequence value) {
+        return addDetail(detail, value, true);
+    }
+
+    public TextView addDetail(Pair<? extends CharSequence, ? extends CharSequence> pair) {
+        return addDetail(pair.getKey(), pair.getValue());
     }
 
     @SafeVarargs

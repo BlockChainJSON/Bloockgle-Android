@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,11 +29,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import anonymous.line.bloockgle.bloockgle.handler.DialogHandler;
+
 /**
  * Created by Mr.Marshall on 23/09/2015.
  */
 public class PostActivity extends Activity {
 
+    private static final String TAG = "PostActivity";
     private static final int FILE_SELECT_CODE = 1;
     private File file;
     private String fileBase64;
@@ -67,6 +71,7 @@ public class PostActivity extends Activity {
                 loadView();
             }
         });
+        alertDialog.setCancelable(false);
         alertDialog.show();
 
         title = (EditText) findViewById(R.id.title);
@@ -111,7 +116,7 @@ public class PostActivity extends Activity {
                     fields.put(currentType.getKeyword().get(x), arrayList.get(x).getText().toString());
                 }
 
-                new ApiRequester(new PublishContentRequest(fields), new SilentApiHandler() {
+                new ApiRequester(new PublishContentRequest(fields), new DialogHandler(PostActivity.this, R.string.publish_dialopg_title, R.string.publish_dialog_message) {
                     @Override
                     public void onOkResponse(JSONObject jsonObject) throws JSONException {
                         String address = jsonObject.getString("address");
@@ -121,11 +126,12 @@ public class PostActivity extends Activity {
                         intent.putExtra("price", price);
                         intent.putExtra("data", fields);
                         startActivity(intent);
+                        finish();
                     }
 
                     @Override
                     public void onErrorResponse(String errorResponse) {
-
+                        Log.e(TAG, errorResponse);
                     }
                 }).execute();
 

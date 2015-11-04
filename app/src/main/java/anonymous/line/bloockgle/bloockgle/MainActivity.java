@@ -18,13 +18,17 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import anonymous.line.bloockgle.bloockgle.handler.ErrorHandler;
+
 /**
  * Created by Mr.Marshall on 23/09/2015.
  */
 public class MainActivity extends Activity {
 
-    private TimeLineAdapter timeLineAdapter;
+    private static final String TAG = "MainActivity";
 
+    private TimeLineAdapter timeLineAdapter;
+    private ArrayList<TimeLineItem> timeLineItems;
     private EditText editTextBuscar;
 
     @Override
@@ -73,7 +77,14 @@ public class MainActivity extends Activity {
                 startActivity(intent);
             }
         });
-        new ApiRequester(new GetTimeLineRequest(1), new SilentApiHandler(){
+
+        getTimeLine();
+
+    }
+
+    private void getTimeLine() {
+        timeLineItems = new ArrayList<>();
+        new ApiRequester(new GetTimeLineRequest(1), new ErrorHandler(){
 
             @Override
             public void onOkResponse(JSONObject jsonObject) throws JSONException {
@@ -81,33 +92,34 @@ public class MainActivity extends Activity {
             }
 
             @Override
-            public void onErrorResponse(String errorResponse) {
-
+            public void onErrorResponse(int code, String errorResponse) {
+                getTimeLine();
             }
         }).execute();
-
     }
 
-    public void getReferenceData (JSONObject jsonObject) throws JSONException {
+    public void getReferenceData (final JSONObject jsonObject) throws JSONException {
         JSONArray content = jsonObject.getJSONArray("content");
         Log.e("Item", content.length()+"");
         for (int x = 0; x < content.length(); x++) {
 
             JSONObject item = content.getJSONObject(x);
             final String reference = item.getString("ref");
-            new ApiRequester(new GetDataRequest(reference), new SilentApiHandler() {
+            new ApiRequester(new GetDataRequest(reference), new ErrorHandler() {
                 @Override
                 public void onOkResponse(JSONObject jsonObject) throws JSONException {
-                    Log.e("error", "ERROR");
                     TimeLineItem timeLineItem = new TimeLineItem(jsonObject, reference);
-                    Log.e("error", "ERROR");
-                    initializedListView(timeLineItem);
-                    Log.e("error", "ERROR");
+                    timeLineItems.add(timeLineItem);
+                    initializedListView();
                 }
 
                 @Override
-                public void onErrorResponse(String errorResponse) {
-
+                public void onErrorResponse(int code, String errorResponse) {
+                    try {
+                        getReferenceData(jsonObject);
+                    } catch (JSONException e) {
+                        onError(e);
+                    }
                 }
             }).execute();
         }
@@ -121,14 +133,10 @@ public class MainActivity extends Activity {
     }
 
 
-    public void initializedListView(TimeLineItem timeLineItem){
+    public void initializedListView(){
         ListView listView = (ListView) findViewById(R.id.list_item);
-        if (timeLineAdapter == null){
-            timeLineAdapter = (new TimeLineAdapter(this, R.layout.time_line_row, new ArrayList<TimeLineItem>()));
-            listView.setAdapter(timeLineAdapter);
-        }
-        timeLineAdapter.add(timeLineItem);
+        timeLineAdapter = (new TimeLineAdapter(this, R.layout.time_line_row, timeLineItems));
+        listView.setAdapter(timeLineAdapter);
         timeLineAdapter.notifyDataSetChanged();
-
     }
 }

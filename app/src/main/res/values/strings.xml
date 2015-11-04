@@ -37,5 +37,7 @@
     <string name="whoweareentropy2">Nuestro objetivo es mejorar el mundo, desarrollando herramientas que resuelvan necesidades reales, huyendo al mismo tiempo del sistema
     socio y economico impuesto y que se presume como real.</string>
     <string name="whoweareentropy3">www.entropy-factory.com</string>
+    <string name="publish_dialopg_title">Sending request</string>
+    <string name="publish_dialog_message">Sending request. Please, wait…</string>
 
 </resources>

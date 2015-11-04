@@ -15,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.chip_chap.services.cash.coin.BitCoin;
+
 import net.glxn.qrgen.android.QRCode;
 
 import org.json.JSONException;
@@ -100,12 +102,15 @@ public class PaymentActivity extends Activity implements CheckLauncher.CheckHold
         });
         qrCode.setImageBitmap(getQrBitmap());
         TextView pay = (TextView) findViewById(R.id.pay1);
-        pay.setText(String.format("%.8f", price) + " btc");
+        pay.setText(BitCoin.valueOf(price).toFriendlyString());
+
         TextView contentsize = (TextView) findViewById(R.id.contentsize);
+        contentsize.setText(getContentSize() + "Kb");
         TextView address = (TextView) findViewById(R.id.address);
         address.setText(this.address);
         coinsreceived = (TextView) findViewById(R.id.coinsreceived);
-        coinsreceived.setText(String.format("%.8f / %.8f",0.0, price));
+        coinsreceived.setText(String.format(
+                "%1$s / %2$s", BitCoin.valueOf(0L).toFriendlyString(), BitCoin.valueOf(price).toFriendlyString()));
 
     }
 
@@ -115,8 +120,7 @@ public class PaymentActivity extends Activity implements CheckLauncher.CheckHold
     }
 
     public String createUri(String address, double price){
-        String s = "bitcoin:" + address + "?amount" + price + "&label=Bloockgle";
-        return  s;
+        return "bitcoin:" + address + "?amount" + price + "&label=Bloockgle";
     }
 
     private Bitmap getQrBitmap(){
@@ -128,7 +132,8 @@ public class PaymentActivity extends Activity implements CheckLauncher.CheckHold
     public void check(JSONObject jsonObject) throws JSONException {
         double received = jsonObject.getDouble("btc");
         String paymentStatus = jsonObject.getString("payment");
-        coinsreceived.setText(String.format("%.8f / %.8f",received, price));
+        coinsreceived.setText(String.format(
+                "%1$s / %2$s", BitCoin.valueOf(received).toFriendlyString(), BitCoin.valueOf(price).toFriendlyString()));
         if (paymentStatus.equals("ok")){
             checkLauncher.cancel();
         }
