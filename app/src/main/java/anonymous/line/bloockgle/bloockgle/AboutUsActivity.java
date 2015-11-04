@@ -48,8 +48,6 @@ public class AboutUsActivity extends Activity {
             }
         });
 
-
-
         Button donate = (Button) findViewById(R.id.donate);
         donate.setOnClickListener(new View.OnClickListener() {
             @Override
