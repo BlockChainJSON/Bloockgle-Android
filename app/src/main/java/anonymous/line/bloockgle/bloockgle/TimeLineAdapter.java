@@ -163,6 +163,7 @@ public class TimeLineAdapter extends ArrayAdapter<TimeLineItem> {
 //                    }
 //                });
 //        }
+//          METODO COMPARTIR
 //        holder.share.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {

@@ -120,7 +120,6 @@ public class MainActivity extends Activity {
         }
     }
 
-
     public void initializedListView(TimeLineItem timeLineItem){
         ListView listView = (ListView) findViewById(R.id.list_item);
         if (timeLineAdapter == null){
@@ -131,4 +130,6 @@ public class MainActivity extends Activity {
         timeLineAdapter.notifyDataSetChanged();
 
     }
+
+
 }

@@ -29,7 +29,6 @@ public class AboutUsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.about_as_activity);
 
-
         ImageButton arrawpayment = (ImageButton) findViewById(R.id.arrawpayment);
         arrawpayment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,8 +46,6 @@ public class AboutUsActivity extends Activity {
                 startActivity(intent);
             }
         });
-
-
 
         Button donate = (Button) findViewById(R.id.donate);
         donate.setOnClickListener(new View.OnClickListener() {

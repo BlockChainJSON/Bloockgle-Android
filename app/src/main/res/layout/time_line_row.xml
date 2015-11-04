@@ -31,15 +31,15 @@
         android:orientation="horizontal"
         android:paddingTop="10dp">
 
-    <ImageView
-        android:id="@+id/share"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.1"
-        android:layout_gravity="right"
-        android:src="@drawable/ic_share"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"/>
+    <!--<ImageView-->
+        <!--android:id="@+id/share"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_weight="0.1"-->
+        <!--android:layout_gravity="right"-->
+        <!--android:src="@drawable/ic_share"-->
+        <!--android:paddingTop="10dp"-->
+        <!--android:paddingBottom="10dp"/>-->
 
     </LinearLayout>
 
