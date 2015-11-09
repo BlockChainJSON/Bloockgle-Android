@@ -30,6 +30,8 @@ public class MainActivity extends Activity {
     private TimeLineAdapter timeLineAdapter;
     private ArrayList<TimeLineItem> timeLineItems;
     private EditText editTextBuscar;
+    private int currentPage = 1;
+    private int totalPages = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,16 +80,63 @@ public class MainActivity extends Activity {
             }
         });
 
+        View nextPage = findViewById(R.id.next);
+        View lastPage = findViewById(R.id.left);
+        nextPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                currentPage++;
+                if (currentPage > totalPages) {
+                    currentPage = totalPages;
+                } else {
+                    getTimeLine();
+                }
+
+            }
+        });
+
+        lastPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                currentPage--;
+                if (currentPage < 1) {
+                    currentPage = 0;
+                } else {
+                    getTimeLine();
+                }
+            }
+        });
         getTimeLine();
 
     }
 
+    private int getTotalPages(int count) {
+        if (count % 10 == 0) {
+            return (count / 10);
+        } else {
+            return (count / 10) + 1;
+        }
+    }
+
+    private void setPagination(int currentPage, int totalPages) {
+        this.currentPage = currentPage;
+        this.totalPages = totalPages;
+    }
+
+    private void setPagination(int currentPage) {
+        setPagination(currentPage, totalPages);
+    }
+
     private void getTimeLine() {
         timeLineItems = new ArrayList<>();
-        new ApiRequester(new GetTimeLineRequest(1), new ErrorHandler(){
+        new ApiRequester(new GetTimeLineRequest(currentPage), new ErrorHandler(){
 
             @Override
             public void onOkResponse(JSONObject jsonObject) throws JSONException {
+                JSONArray content = jsonObject.getJSONArray("content");
+                int count = content.getJSONObject(0).getInt("count");
+                setPagination(currentPage, getTotalPages(count));
+                clearData();
                 getReferenceData(jsonObject);
             }
 
