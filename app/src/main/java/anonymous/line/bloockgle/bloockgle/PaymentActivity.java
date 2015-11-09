@@ -2,11 +2,13 @@ package anonymous.line.bloockgle.bloockgle;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chip_chap.services.cash.coin.BitCoin;
 
@@ -73,6 +76,7 @@ public class PaymentActivity extends Activity implements CheckLauncher.CheckHold
                 finish();
             }
         });
+        final BitCoin priceBtc = BitCoin.valueOf(price);
 
         ImageButton btncancel = (ImageButton) findViewById(R.id.btncancel);
         btncancel.setOnClickListener(new View.OnClickListener() {
@@ -91,10 +95,16 @@ public class PaymentActivity extends Activity implements CheckLauncher.CheckHold
                 newQrCode.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                 AlertDialog.Builder alertDialogBuider = new AlertDialog.Builder(PaymentActivity.this);
                 alertDialogBuider.setView(newQrCode);
-                alertDialogBuider.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
+                alertDialogBuider.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
+                    }
+                });
+                alertDialogBuider.setNeutralButton("Pay", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        launchBtcIntent(priceBtc.getDoubleValue());
                     }
                 });
                 alertDialogBuider.show();
@@ -102,16 +112,34 @@ public class PaymentActivity extends Activity implements CheckLauncher.CheckHold
         });
         qrCode.setImageBitmap(getQrBitmap());
         TextView pay = (TextView) findViewById(R.id.pay1);
-        pay.setText(BitCoin.valueOf(price).toFriendlyString());
+
+        pay.setText(priceBtc.toFriendlyString());
 
         TextView contentsize = (TextView) findViewById(R.id.contentsize);
         contentsize.setText(getContentSize() + "Kb");
         TextView address = (TextView) findViewById(R.id.address);
         address.setText(this.address);
+        address.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                launchBtcIntent(priceBtc.getDoubleValue());
+            }
+        });
         coinsreceived = (TextView) findViewById(R.id.coinsreceived);
         coinsreceived.setText(String.format(
-                "%1$s / %2$s", BitCoin.valueOf(0L).toFriendlyString(), BitCoin.valueOf(price).toFriendlyString()));
+                "%1$s / %2$s", BitCoin.valueOf(0L).toFriendlyString(), priceBtc.toFriendlyString()));
 
+    }
+
+    private void launchBtcIntent(double amount) {
+        Intent launchBtcApp = new Intent(Intent.ACTION_VIEW);
+        launchBtcApp.setData(Uri.parse(createUri(this.address, amount)));
+        try {
+            startActivity(launchBtcApp);
+        } catch (ActivityNotFoundException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Bitcoin wallet not found!", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public int getContentSize(){
@@ -120,7 +148,7 @@ public class PaymentActivity extends Activity implements CheckLauncher.CheckHold
     }
 
     public String createUri(String address, double price){
-        return "bitcoin:" + address + "?amount" + price + "&label=Bloockgle";
+        return "bitcoin:" + address + "?amount=" + price + "&label=Bloockgle";
     }
 
     private Bitmap getQrBitmap(){
@@ -130,7 +158,7 @@ public class PaymentActivity extends Activity implements CheckLauncher.CheckHold
 
     @Override
     public void check(JSONObject jsonObject) throws JSONException {
-        double received = jsonObject.getDouble("btc");
+        long received = jsonObject.getLong("btc");
         String paymentStatus = jsonObject.getString("payment");
         coinsreceived.setText(String.format(
                 "%1$s / %2$s", BitCoin.valueOf(received).toFriendlyString(), BitCoin.valueOf(price).toFriendlyString()));
