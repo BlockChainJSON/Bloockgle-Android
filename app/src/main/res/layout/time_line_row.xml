@@ -18,7 +18,7 @@
         android:paddingTop="20dp"
         android:textColor="#6F6F6E" />
 
-    <anonymous.line.bloockgle.bloockgle.DetailPanel
+    <anonymous.line.bloockgle.view.DetailPanel
         android:id="@+id/detailPanel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
