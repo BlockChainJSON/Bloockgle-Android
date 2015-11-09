@@ -11,6 +11,7 @@
     <string name="youhavetopay1"> 0,03 BTC</string>
     <string name="youhavetopay2"> for uploading</string>
     <string name="youhavetopay3"> 230K</string>
+    <string name="titleLine">Title</string>
 
     <string name="add">Add file</string>
     <string name="textview">It is necessary to make a payment for the information is recorded in the BlockChain. This payment depends on what occupies that information that is indexed.</string>

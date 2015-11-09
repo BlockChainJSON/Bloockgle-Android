@@ -33,7 +33,7 @@
                 android:layout_weight="1"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
-                android:background="#4284F3">
+                android:background="#662481">
 
             <EditText
                 android:id="@+id/edittext"

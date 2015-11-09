@@ -17,7 +17,7 @@ public class PublishContentRequest extends BasicApiRequest {
     @Override
     public Map<String, String> getParams() {
         Map<String, String> Params = super.getParams();
-        Params.put("data", buildJSON(hashMap).toString());
+        Params.put("datos", buildJSON(hashMap).toString());
         Params.put("action", "getAddress");
         return Params;
 
