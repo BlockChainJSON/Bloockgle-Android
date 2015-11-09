@@ -86,6 +86,7 @@ public class PaymentActivity extends Activity implements CheckLauncher.CheckHold
             }
         });
 
+
         ImageView qrCode = (ImageView) findViewById(R.id.qrCode);
         qrCode.setOnClickListener(new View.OnClickListener() {
             @Override
