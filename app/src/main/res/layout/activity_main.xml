@@ -109,14 +109,21 @@
             android:layout_height="wrap_content"
             android:id="@+id/left"
             android:src="@drawable/last_page"
-            android:layout_weight="0.5" />
+            android:layout_weight="0.33" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/pagination"
+            android:layout_weight="0.33"
+            android:gravity="center" />
 
         <ImageView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/next"
             android:src="@drawable/next_page"
-            android:layout_weight="0.5" />
+            android:layout_weight="0.33" />
     </LinearLayout>
 
 </RelativeLayout>

@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.chip_chap.services.asynchttp.net.ApiRequester;
 
@@ -45,7 +46,7 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 // Recoger el texto del edittext
-                String searchTXT = editTextBuscar.getText().toString();
+                final String searchTXT = editTextBuscar.getText().toString();
                 if (!searchTXT.isEmpty() && searchTXT.length() > 3){
                     new ApiRequester(new GetTimeLineRequest("findword", searchTXT), new SilentApiHandler() {
                         @Override
@@ -121,6 +122,8 @@ public class MainActivity extends Activity {
     private void setPagination(int currentPage, int totalPages) {
         this.currentPage = currentPage;
         this.totalPages = totalPages;
+        TextView pagination = (TextView) findViewById(R.id.pagination);
+        pagination.setText(currentPage + " / " + totalPages);
     }
 
     private void setPagination(int currentPage) {
