@@ -1,5 +1,7 @@
 package anonymous.line.bloockgle.request;
 
+import android.util.Log;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,8 +10,9 @@ import java.util.Map;
  */
 public class CheckApiRequest extends BasicApiRequest {
 
+    private static final String TAG = "CheckApiRequest";
     private HashMap<String, String> hashMap;
-    private boolean sendData;
+    private boolean sendData = true;
     private String address;
 
     public CheckApiRequest(HashMap<String, String> content, String address){
@@ -17,19 +20,20 @@ public class CheckApiRequest extends BasicApiRequest {
         hashMap = content;
     }
 
-    public void setSendData(boolean sendData){
+    public void setSendData(boolean sendData) {
         this.sendData = sendData;
     }
 
     @Override
     public Map<String, String> getParams() {
-        Map<String, String> Params = super.getParams();
+        Map<String, String> params = super.getParams();
+        Log.e(TAG, "send data: " + sendData + ", datos: " + buildJSON(hashMap).toString());
         if (sendData){
-            Params.put("data", buildJSON(hashMap).toString());
+            params.put("datos", buildJSON(hashMap).toString());
         }
-        Params.put("action", "check");
-        Params.put("address", address);
-        return Params;
+        params.put("action", "check");
+        params.put("address", address);
+        return params;
 
     }
 }

@@ -54,8 +54,6 @@ public class PaymentActivity extends Activity implements CheckLauncher.CheckHold
         address = bundle.getString("address");
         price = bundle.getDouble("price");
         data = (HashMap<String, String>) bundle.getSerializable("data");
-        checkLauncher = new CheckLauncher(new CheckApiRequest(data, address), PaymentActivity.this);
-        checkLauncher.start();
 
 //        String font_path_1 = "font/exobold.ttf";
 //        Typeface TF1 = Typeface.createFromAsset(getAssets(),font_path_1);
@@ -133,6 +131,18 @@ public class PaymentActivity extends Activity implements CheckLauncher.CheckHold
         coinsreceived.setText(String.format(
                 "%1$s / %2$s", BitCoin.valueOf(0L).toFriendlyString(), priceBtc.toFriendlyString()));
 
+    }
+    @Override
+    public void onPause() {
+        checkLauncher.cancel();
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        checkLauncher = new CheckLauncher(new CheckApiRequest(data, address), PaymentActivity.this);
+        checkLauncher.start();
     }
 
     private void launchBtcIntent(double amount) {

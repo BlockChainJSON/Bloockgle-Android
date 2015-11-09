@@ -44,6 +44,7 @@ public class CheckLauncher extends Thread {
             @Override
             public void onOkResponse(JSONObject jsonObject) throws JSONException {
                 checkHolder.check(jsonObject);
+                apiRequest.setSendData(false);
             }
 
             @Override
@@ -51,7 +52,6 @@ public class CheckLauncher extends Thread {
 
             }
         }).execute();
-        apiRequest.setSendData(false);
         if (!stop){
             handler.postDelayed(this, 10000);
         }
