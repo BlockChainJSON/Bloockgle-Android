@@ -10,27 +10,21 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.18"
-            android:orientation="vertical">
-
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:src="@drawable/header"
                 android:layout_weight="0.18"
-                android:orientation="vertical" />
-
-        </LinearLayout>
+                android:orientation="vertical"
+                android:paddingLeft="80dp"
+                android:paddingRight="80dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.06"
             android:orientation="horizontal"
-            android:background="#4284F3">
+            android:background="#662481">
 
             <ImageButton
                 android:background="@color/transparent_color"
@@ -53,12 +47,12 @@
                 android:textSize="15sp"/>
 
             <ImageButton
-                android:background="#4284F3"
+                android:background="#662481"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="0.15"
-                android:src="#4284F3"/>
+                android:src="#662481"/>
 
         </LinearLayout>
 

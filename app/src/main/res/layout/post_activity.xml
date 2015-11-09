@@ -9,25 +9,22 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.18"
-            android:orientation="vertical">
-
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/header"/>
-
-        </LinearLayout>
+                android:layout_height="0dp"
+                android:layout_weight="0.18"
+                android:gravity="center_vertical"
+                android:layout_gravity="center"
+                android:src="@drawable/header"
+                android:paddingLeft="80dp"
+                android:paddingRight="80dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.06"
             android:orientation="horizontal"
-            android:background="#4284F3">
+            android:background="#662481">
 
             <ImageButton
                 android:id="@+id/btnatras"
@@ -83,15 +80,15 @@
                     android:id="@+id/title"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
+                    android:background="@drawable/edit_text_style"
                     android:paddingLeft="10dp"
                     android:singleLine="true"
-                    android:background="@drawable/edit_text_style"
                     android:layout_marginBottom="5dp"
                     android:textSize="16sp"
                     android:inputType="textEmailAddress"
                     android:hint="Title"
-                    android:textColor="#4284F3"
-                    android:textColorHint="#4284F3"/>
+                    android:textColor="#6f6f6f"
+                    android:textColorHint="#6f6f6f"/>
 
                 <EditText
                     android:id="@+id/description"
@@ -101,10 +98,10 @@
                     android:paddingLeft="10dp"
                     android:background="@drawable/edit_text_style"
                     android:paddingTop="5dp"
-                    android:hint="Texto/publicación"
+                    android:hint="Text/publication"
                     android:gravity="top|left"
-                    android:textColor="#4284F3"
-                    android:textColorHint="#4284F3"/>
+                    android:textColor="#6f6f6f"
+                    android:textColorHint="#6f6f6f"/>
 
                 <EditText
                     android:id="@+id/addresswallet"
@@ -115,8 +112,8 @@
                     android:paddingLeft="10dp"
                     android:layout_marginTop="5dp"
                     android:textSize="16sp"
-                    android:textColorHint="#4284F3"
-                    android:textColor="#4284F3"
+                    android:textColorHint="#6f6f6f"
+                    android:textColor="#6f6f6f"
                     android:hint="Add wallet direction for donations"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp" />

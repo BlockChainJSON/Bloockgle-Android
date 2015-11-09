@@ -11,31 +11,30 @@
     <string name="youhavetopay1"> 0,03 BTC</string>
     <string name="youhavetopay2"> for uploading</string>
     <string name="youhavetopay3"> 230K</string>
+    <string name="titleLine">Title</string>
 
     <string name="add">Add file</string>
-
-    <string name="textview">Es necesario realizar un pago para que la informacion quede registrada en el BlockChain. Este pago depende de lo que ocupe esa informacion que se indexa.</string>
-    <string name="textview1">Cuando se reciba el pago se hara automaticamente la publicacion.</string>
+    <string name="textview">It is necessary to make a payment for the information is recorded in the BlockChain. This payment depends on what occupies that information that is indexed.</string>
+    <string name="textview1">When payment is received this publication done automatically.</string>
     <string name="textview2">X2fdAasSsixubiUBub0823jsaoon</string>
     <string name="textview3">Receibed (btc):</string>
     <string name="textview4">0,01 / 0,03</string>
 
     <string name="whatisblockgle">What is Bloockgle?</string>
-    <string name="whatisblockgle1">Bloockgle es la herramienta definitiva para hacer publicaciones en la red.</string>
-    <string name="whatisblockgle2">Cada vez que se hace una insercion la informacion se almacena en la
-    mayor y mas segura base de datos del mundo, el BlockChain. Creado
-    para ser utilizado por el Bitcoin, una de las mayores alternativas para
-    crear un sistema economico diferente.
-    BlockChain es un sistema descentralizado repartido por todo el
-    mundo, las publicaciones que se hacen en el son permanentes, no
-    pueden ser modificadas o eliminadas por ninguna persona, entidad o
-    conjunto de las mismas.</string>
+    <string name="whatisblockgle1">Bloockgle is the ultimate tool for making publications in the network.</string>
+    <string name="whatisblockgle2">Each time you do an insert, the information is stored in the
+        largest and most secure database in the world, the BlockChain. Created
+        to be used for the Bitcoin, one of the greatest alternatives to
+        create a system of economic different.
+        BlockChain is a decentralized system spread all over the
+        world, publications that are made on the are permanent, not
+can be modified or deleted by any person, entity or
+set of the same.</string>
 
     <string name="whoweare">Who we are?</string>
     <string name="whoweareentropy">We are Entropy Factory.</string>
-    <string name="whoweareentropy1">Somos una comunidad de personas vinculadas con el mundo virtual que habita en un entorno rural.</string>
-    <string name="whoweareentropy2">Nuestro objetivo es mejorar el mundo, desarrollando herramientas que resuelvan necesidades reales, huyendo al mismo tiempo del sistema
-    socio y economico impuesto y que se presume como real.</string>
+    <string name="whoweareentropy1">We are a community of people linked with the virtual world that lives in a rural environment.</string>
+    <string name="whoweareentropy2">Our goal is to improve the world, developing tools that meet real needs, avoiding at the same time of the socio economic and tax and is presumed to be real.</string>
     <string name="whoweareentropy3">www.entropy-factory.com</string>
     <string name="publish_dialopg_title">Sending request</string>
     <string name="publish_dialog_message">Sending request. Please, wait…</string>

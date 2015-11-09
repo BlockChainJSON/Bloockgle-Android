@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Bloockgle</string>
+
+    <string name="hello_world">Hola Mundo!</string>
+    <string name="action_settings">Ajustes</string>
+
+    <string name="ABOUTUS">ACERCA DE NOSOTROS</string>
+    <string name="PAYMENT">PAGO</string>
+    <string name="titleLine">Titulo</string>
+
+
+    <string name="youhavetopay">Usted tiene que Pagar </string>
+    <string name="youhavetopay1"> 0,03 BTC</string>
+    <string name="youhavetopay2"> para subir</string>
+    <string name="youhavetopay3"> 230K</string>
+
+    <string name="add">Añadir archivo</string>
+    <string name="textview">Es necesario hacer un pago por la información que se registra en el BlockChain. Este pago depende de lo que ocupa de que la información que se intercambia.</string>
+    <string name="textview1">Cuando el pago es recibido esta publicación se realiza automáticamente.</string>
+    <string name="textview2">X2fdAasSsixubiUBub0823jsaoon</string>
+    <string name="textview3">Recibidos (btc):</string>
+    <string name="textview4">0,01 / 0,03</string>
+
+    <string name="whatisblockgle">¿Qué es Bloockgle?</string>
+    <string name="whatisblockgle1">Bloockgle es la herramienta definitiva para hacer publicaciones en la red.</string>
+    <string name="whatisblockgle2">Cada vez que se hace una insercion la informacion se almacena en la
+    mayor y mas segura base de datos del mundo, el BlockChain. Creado
+    para ser utilizado por el Bitcoin, una de las mayores alternativas para
+    crear un sistema economico diferente.
+    BlockChain es un sistema descentralizado repartido por todo el
+    mundo, las publicaciones que se hacen en el son permanentes, no
+    pueden ser modificadas o eliminadas por ninguna persona, entidad o
+    conjunto de las mismas.</string>
+
+    <string name="whoweare">Quiénes somos?</string>
+    <string name="whoweareentropy">Entropy Factory.</string>
+    <string name="whoweareentropy1">Somos una comunidad de personas vinculadas con el mundo virtual, que vive en un entorno rural.</string>
+    <string name="whoweareentropy2">Nuestro objetivo es mejorar el mundo, el desarrollo de herramientas que satisfacen las necesidades reales, evitando al mismo tiempo la situación socio-económica y fiscal ya que se presume de que sea real.</string>
+    <string name="whoweareentropy3">www.entropy-factory.com</string>
+
+
+</resources>
