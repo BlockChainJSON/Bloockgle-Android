@@ -9,8 +9,8 @@
     <color name="time_line_text_color">#3C83CD</color>
     <color name="link">#3C83CD</color>
     <color name="link_pressed">#314a87</color>
-    <color name="address">#cd33ae</color>
-    <color name="address_pressed">#681856</color>
+    <color name="address_pressed">#cd33ae</color>
+    <color name="address">#681856</color>
     <color name="torrent">#00bd13</color>
     <color name="torrent_pressed">#00740e</color>
     <color name="background_color">#ececec</color>

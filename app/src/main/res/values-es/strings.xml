@@ -37,9 +37,23 @@
     <string name="whoweareentropy2">Nuestro objetivo es mejorar el mundo, el desarrollo de herramientas que satisfacen las necesidades reales, evitando al mismo tiempo la situación socio-económica y fiscal ya que se presume de que sea real.</string>
     <string name="whoweareentropy3">www.entropy-factory.com</string>
     <string name="loading">Cargando…</string>
-    <string name="publish_dialog_message">Enviado petición, Por favor, espera…</string>
+    <string name="publish_dialog_message">Enviado petición. Por favor, espera…</string>
     <string name="publish_dialopg_title">Enviando petición</string>
     <string name="published">¡Perfecto! Hemos recibido el pago. Tus datos se publicarán en unos minutos.</string>
+    <string name="address_wallet_donations">Añade dirección bitcoin para donaciones</string>
+    <string name="details">Detalles:</string>
+    <string name="reference">Referencia:</string>
+    <string name="see_more">Ver más</string>
+    <string name="text_publication">Texto/Publicación</string>
+    <string name="title">Título</string>
+    <string name="title_activity_post">Publicación</string>
+    <string name="title_activity_published">¡Publicada!</string>
+    <string name="transactions_in_blockchain">Transacciones en el blockchain:</string>
+    <string name="tx_hash_copied">Hash de la transacción copiado!</string>
+    <string name="copy_address">Copiar dirección</string>
+    <string name="donate">Donar</string>
+    <string name="btc_address_copied">¡Direccion bitcoin copiada!</string>
+    <string name="about">Sobre Bloockgle</string>
 
 
 </resources>

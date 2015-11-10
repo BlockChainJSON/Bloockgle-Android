@@ -192,7 +192,6 @@ public class MainActivity extends Activity implements TimeLine{
         showLoader(true);
     }
 
-
     public void initializedListView(boolean isFirst, boolean isLast){
         Log.e(TAG, "first: " + isFirst + ", last: " + isLast);
         showLoader(false);

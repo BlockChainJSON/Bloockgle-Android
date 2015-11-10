@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -17,7 +16,6 @@ import com.chip_chap.services.asynchttp.net.ApiRequester;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,8 +36,7 @@ public class PostActivity extends Activity {
     private Type currentType;
     private EditText title;
     private EditText description;
-    private EditText addresswallet;
-
+    private EditText addressWallet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,12 +60,19 @@ public class PostActivity extends Activity {
                 loadView();
             }
         });
-        alertDialog.setCancelable(false);
+        alertDialog.setCancelable(true);
+        alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialogInterface) {
+                dialogInterface.dismiss();
+                finish();
+            }
+        });
         alertDialog.show();
 
         title = (EditText) findViewById(R.id.title);
         description = (EditText) findViewById(R.id.description);
-        addresswallet = (EditText) findViewById(R.id.addresswallet);
+        addressWallet = (EditText) findViewById(R.id.addresswallet);
 
     }
 
@@ -83,7 +87,8 @@ public class PostActivity extends Activity {
             strings[x] = strings[x].replace("_", " ");
             BorderEditText borderEditText = new BorderEditText(this);
             borderEditText.setHint(strings[x]);
-            borderEditText.setHintTextColor(getResources().getColor(R.color.blue));
+            borderEditText.setHintTextColor(getResources().getColor(R.color.violet_light2));
+            borderEditText.setTextColor(getResources().getColor(R.color.violet));
             linearLayout.addView(borderEditText);
             arrayList.add(borderEditText);
         }
@@ -103,7 +108,7 @@ public class PostActivity extends Activity {
                 final HashMap<String, String> fields = new HashMap<String, String>();
                 fields.put("title", title.getText().toString());
                 fields.put("description", description.getText().toString());
-                fields.put("address_wallet", addresswallet.getText().toString());
+                fields.put("address_wallet", addressWallet.getText().toString());
                 for (int x=0 ; x<arrayList.size() ; x++){
                     fields.put(currentType.getKeyword().get(x), arrayList.get(x).getText().toString());
                 }

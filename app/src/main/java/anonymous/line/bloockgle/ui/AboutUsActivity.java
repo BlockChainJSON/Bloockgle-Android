@@ -2,10 +2,15 @@ package anonymous.line.bloockgle.ui;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +18,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import net.glxn.qrgen.android.QRCode;
 
@@ -25,6 +31,7 @@ import anonymous.line.bloockgle.R;
  */
 public class AboutUsActivity extends Activity {
 
+    private static final String BTC_ADDRESS = "1RhT33BF9krL6mR8xxux4ir957bZCzfws";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,17 +41,7 @@ public class AboutUsActivity extends Activity {
         arrawpayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AboutUsActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        ImageButton btnpublish = (ImageButton) findViewById(R.id.btnpublish);
-        btnpublish.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AboutUsActivity.this, PostActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
 
@@ -53,14 +50,36 @@ public class AboutUsActivity extends Activity {
             @Override
             public void onClick(View v) {
                 ImageView newQrCode = new ImageView(AboutUsActivity.this);
-                newQrCode.setImageBitmap(getQrBitmap("asdfghjkl"));
+                newQrCode.setImageBitmap(getQrBitmap());
                 newQrCode.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                 AlertDialog.Builder alertDialogBuider = new AlertDialog.Builder(AboutUsActivity.this);
                 alertDialogBuider.setView(newQrCode);
-                alertDialogBuider.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
+                alertDialogBuider.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
+                    }
+                });
+                alertDialogBuider.setNeutralButton(R.string.donate, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                        launchBtcIntent();
+                    }
+                });
+                alertDialogBuider.setNegativeButton(R.string.copy_address, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB) {
+                            android.text.ClipboardManager clipboard = (android.text.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                            clipboard.setText(BTC_ADDRESS);
+                        } else {
+                            ClipboardManager clipboard = (android.content.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                            ClipData clip = ClipData.newPlainText("Bloockgle address", BTC_ADDRESS);
+                            clipboard.setPrimaryClip(clip);
+                        }
+                        Toast.makeText(AboutUsActivity.this, getString(R.string.btc_address_copied), Toast.LENGTH_SHORT).show();
                     }
                 });
                 alertDialogBuider.show();
@@ -68,14 +87,24 @@ public class AboutUsActivity extends Activity {
         });
     }
 
-    private Bitmap getQrBitmap(String address){
-        File qrFile = QRCode.from(getBtcUri(address)).withSize(750,750).file();
+    private void launchBtcIntent() {
+        Intent launchBtcApp = new Intent(Intent.ACTION_VIEW);
+        launchBtcApp.setData(Uri.parse(createUri(BTC_ADDRESS)));
+        try {
+            startActivity(launchBtcApp);
+        } catch (ActivityNotFoundException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Bitcoin wallet not found!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private Bitmap getQrBitmap(){
+        File qrFile = QRCode.from(createUri(BTC_ADDRESS)).withSize(750,750).file();
         return BitmapFactory.decodeFile(qrFile.getAbsolutePath());
     }
 
-    private String getBtcUri(String address){
-        String s = "bitcoin:" + address + "&label=Bloockgle";
-        return s;
+    private String createUri(String address){
+        return "bitcoin:" + address;
 
     }
 }

@@ -42,9 +42,10 @@
                 android:layout_weight="0.6"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="PUBLISH"
-                android:textColor="#ffffff"
+                android:text="@string/title_activity_post"
+                android:textColor="@color/white"
                 android:textStyle="bold"
+                android:textAllCaps="true"
                 android:textSize="15sp"/>
 
             <ImageButton
@@ -86,9 +87,9 @@
                     android:layout_marginBottom="5dp"
                     android:textSize="16sp"
                     android:inputType="textEmailAddress"
-                    android:hint="Title"
-                    android:textColor="#6f6f6f"
-                    android:textColorHint="#6f6f6f"/>
+                    android:hint="@string/title"
+                    android:textColor="@color/violet"
+                    android:textColorHint="@color/violet_light2"/>
 
                 <EditText
                     android:id="@+id/description"
@@ -98,10 +99,10 @@
                     android:paddingLeft="10dp"
                     android:background="@drawable/edit_text_style"
                     android:paddingTop="5dp"
-                    android:hint="Text/publication"
+                    android:hint="@string/text_publication"
                     android:gravity="top|left"
-                    android:textColor="#6f6f6f"
-                    android:textColorHint="#6f6f6f"/>
+                    android:textColor="@color/violet"
+                    android:textColorHint="@color/violet_light2"/>
 
                 <EditText
                     android:id="@+id/addresswallet"
@@ -112,9 +113,9 @@
                     android:paddingLeft="10dp"
                     android:layout_marginTop="5dp"
                     android:textSize="16sp"
-                    android:textColorHint="#6f6f6f"
-                    android:textColor="#6f6f6f"
-                    android:hint="Add wallet direction for donations"
+                    android:textColorHint="@color/violet_light2"
+                    android:textColor="@color/violet"
+                    android:hint="@string/address_wallet_donations"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp" />
 

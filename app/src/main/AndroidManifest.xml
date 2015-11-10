@@ -12,26 +12,34 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="anonymous.line.bloockgle.ui.SplashActivity"
+            android:name=".ui.SplashActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name="anonymous.line.bloockgle.ui.PostActivity"
+        <activity
+            android:name=".ui.PostActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"/>
-        <activity android:name="anonymous.line.bloockgle.ui.PaymentActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name="anonymous.line.bloockgle.ui.AboutUsActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name="anonymous.line.bloockgle.ui.MainActivity"
-            android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="portrait"/>
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.PaymentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.AboutUsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.MainActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.PublishedActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_published" >
+        </activity>
     </application>
 
 </manifest>

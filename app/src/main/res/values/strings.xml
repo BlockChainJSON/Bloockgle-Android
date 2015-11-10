@@ -38,5 +38,18 @@ set of the same.</string>
     <string name="loading">Loading…</string>
     <string name="published">Just perfect! We have received the payment. Your data will be published in a few minutes.</string>
     <string name="see_more">See more</string>
+    <string name="title_activity_published">Published!</string>
+    <string name="title_activity_post">Publish</string>
+    <string name="title">Title</string>
+    <string name="text_publication">Text/Publication</string>
+    <string name="address_wallet_donations">Add wallet address for donations</string>
+    <string name="details">Details:</string>
+    <string name="transactions_in_blockchain">Transactions in blockchain:</string>
+    <string name="reference">Reference:</string>
+    <string name="tx_hash_copied">Transaction hash copied!</string>
+    <string name="donate">Donate</string>
+    <string name="copy_address">Copy address</string>
+    <string name="btc_address_copied">Bitcoin address copied!</string>
+    <string name="about">About</string>
 
 </resources>
