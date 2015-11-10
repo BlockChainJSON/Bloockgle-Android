@@ -17,9 +17,12 @@
     <color name="transparent_color">#00000000</color>
     <color name="shearch_color">#E2ED50</color>
     <color name="white">#FFFFFF</color>
-    <color name="violet">#662481</color>
     <color name="gris">#ececec</color>
     <color name="letra">#6F6F6E</color>
+    <color name="violet_light3">#d031f0</color>
+    <color name="violet_light2">#ac2fcb</color>
+    <color name="violet_light">#8529a2</color>
+    <color name="violet">#662481</color>
 
 
 </resources>

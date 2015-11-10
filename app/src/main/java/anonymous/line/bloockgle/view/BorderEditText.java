@@ -7,7 +7,7 @@ import android.util.TypedValue;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
-import anonymous.line.bloockgle.bloockgle.R;
+import anonymous.line.bloockgle.R;
 
 /**
  * Created by Mr.Marshall on 22/10/2015.

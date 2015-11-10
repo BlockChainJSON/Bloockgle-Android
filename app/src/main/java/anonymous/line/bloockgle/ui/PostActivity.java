@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import anonymous.line.bloockgle.view.BorderEditText;
-import anonymous.line.bloockgle.bloockgle.R;
+import anonymous.line.bloockgle.R;
 import anonymous.line.bloockgle.timeline.Type;
 import anonymous.line.bloockgle.handler.DialogHandler;
 import anonymous.line.bloockgle.request.PublishContentRequest;

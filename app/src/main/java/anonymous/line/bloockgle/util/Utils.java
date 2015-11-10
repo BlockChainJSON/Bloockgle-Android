@@ -1,4 +1,4 @@
-package anonymous.line.bloockgle;
+package anonymous.line.bloockgle.util;
 
 import android.content.Context;
 import android.database.Cursor;

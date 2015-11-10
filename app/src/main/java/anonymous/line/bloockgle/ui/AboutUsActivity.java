@@ -18,7 +18,7 @@ import net.glxn.qrgen.android.QRCode;
 
 import java.io.File;
 
-import anonymous.line.bloockgle.bloockgle.R;
+import anonymous.line.bloockgle.R;
 
 /**
  * Created by Mr.Marshall on 23/09/2015.

@@ -5,7 +5,7 @@ android {
     buildToolsVersion "22.0.1"
 
     defaultConfig {
-        applicationId "anonymous.line.bloockgle.bloockgle"
+        applicationId "anonymous.line.bloockgle"
         minSdkVersion 14
         targetSdkVersion 22
         versionCode 1
@@ -23,5 +23,6 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'net.glxn.qrgen:android:2.0'
     compile 'com.android.support:appcompat-v7:22.0.0'
+    compile 'com.jpardogo.googleprogressbar:library:1.2.0'
     compile files('libs/chipchap-http-api.jar')
 }

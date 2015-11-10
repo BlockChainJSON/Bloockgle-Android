@@ -7,7 +7,7 @@ import android.os.Bundle;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import anonymous.line.bloockgle.bloockgle.R;
+import anonymous.line.bloockgle.R;
 
 public class SplashActivity extends Activity {
 

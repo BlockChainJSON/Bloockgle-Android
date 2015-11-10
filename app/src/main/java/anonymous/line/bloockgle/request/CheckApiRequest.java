@@ -27,7 +27,6 @@ public class CheckApiRequest extends BasicApiRequest {
     @Override
     public Map<String, String> getParams() {
         Map<String, String> params = super.getParams();
-        Log.e(TAG, "send data: " + sendData + ", datos: " + buildJSON(hashMap).toString());
         if (sendData){
             params.put("datos", buildJSON(hashMap).toString());
         }

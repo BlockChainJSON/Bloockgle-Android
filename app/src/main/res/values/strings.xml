@@ -38,5 +38,6 @@ set of the same.</string>
     <string name="whoweareentropy3">www.entropy-factory.com</string>
     <string name="publish_dialopg_title">Sending request</string>
     <string name="publish_dialog_message">Sending request. Please, wait…</string>
+    <string name="loading">Loading...</string>
 
 </resources>

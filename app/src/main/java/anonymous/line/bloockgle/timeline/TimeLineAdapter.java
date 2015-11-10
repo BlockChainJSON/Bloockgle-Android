@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Set;
 
 import anonymous.line.bloockgle.view.DetailPanel;
-import anonymous.line.bloockgle.bloockgle.R;
+import anonymous.line.bloockgle.R;
 
 /**
  * Created by Mr.Marshall on 30/09/2015.

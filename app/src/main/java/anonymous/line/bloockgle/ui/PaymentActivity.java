@@ -28,7 +28,7 @@ import java.io.File;
 import java.util.HashMap;
 
 import anonymous.line.bloockgle.timeline.CheckLauncher;
-import anonymous.line.bloockgle.bloockgle.R;
+import anonymous.line.bloockgle.R;
 import anonymous.line.bloockgle.request.CheckApiRequest;
 
 /**
