@@ -33,6 +33,10 @@ public class TimeLineItem  {
         }
     }
 
+    private TimeLineItem(HashMap<String, String> content) {
+        this.content = content;
+    }
+
     public HashMap<String, String> getContent(){
         return  content;
     }
@@ -71,6 +75,10 @@ public class TimeLineItem  {
 
     public Uri getBitcoinUri() {
         return Uri.parse("bitcoin:" + get("address"));
+    }
+
+    public static TimeLineItem fake() {
+        return new TimeLineItem(new HashMap<String, String>());
     }
 
 }

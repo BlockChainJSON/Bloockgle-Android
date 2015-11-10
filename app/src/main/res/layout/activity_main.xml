@@ -118,7 +118,7 @@
 
     </LinearLayout>
 
-    <ImageButton
+    <ImageView
         android:id="@+id/btnpublish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -126,35 +126,6 @@
         android:layout_marginRight="30dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="90dp"/>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/left"
-            android:src="@drawable/last_page"
-            android:layout_weight="0.33" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:id="@+id/pagination"
-            android:layout_weight="0.33"
-            android:gravity="center"
-            android:textColor="@color/violet" />
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/next"
-            android:src="@drawable/next_page"
-            android:layout_weight="0.33" />
-    </LinearLayout>
+        android:layout_marginBottom="30dp"/>
 
 </RelativeLayout>

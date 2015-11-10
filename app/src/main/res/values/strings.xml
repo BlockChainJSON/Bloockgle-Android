@@ -7,17 +7,14 @@
     <string name="ABOUTUS">ABOUT US</string>
     <string name="PAYMENT">PAYMENT</string>
 
-    <string name="youhavetopay">You have to Pay </string>
-    <string name="youhavetopay1"> 0,03 BTC</string>
-    <string name="youhavetopay2"> for uploading</string>
-    <string name="youhavetopay3"> 230K</string>
+    <string name="you_have_to_pay">You have to pay <b>%1$s</b> for uploading <b>%2$s</b></string>
     <string name="titleLine">Title</string>
 
     <string name="add">Add file</string>
     <string name="textview">It is necessary to make a payment for the information is recorded in the BlockChain. This payment depends on what occupies that information that is indexed.</string>
     <string name="textview1">When payment is received this publication done automatically.</string>
     <string name="textview2">X2fdAasSsixubiUBub0823jsaoon</string>
-    <string name="textview3">Receibed (btc):</string>
+    <string name="textview3">Received (btc):</string>
     <string name="textview4">0,01 / 0,03</string>
 
     <string name="whatisblockgle">What is Bloockgle?</string>
@@ -38,6 +35,8 @@ set of the same.</string>
     <string name="whoweareentropy3">www.entropy-factory.com</string>
     <string name="publish_dialopg_title">Sending request</string>
     <string name="publish_dialog_message">Sending request. Please, wait…</string>
-    <string name="loading">Loading...</string>
+    <string name="loading">Loading…</string>
+    <string name="published">Just perfect! We have received the payment. Your data will be published in a few minutes.</string>
+    <string name="see_more">See more</string>
 
 </resources>

@@ -85,41 +85,12 @@
                         android:gravity="center_horizontal">
 
                         <TextView
-                            android:id="@+id/tv1"
+                            android:id="@+id/to_pay"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/youhavetopay"
+                            android:text="@string/you_have_to_pay"
                             android:textSize="14sp"
                             android:textColor="#6F6F6E"/>
-
-                        <TextView
-                            android:id="@+id/pay1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/youhavetopay1"
-                            android:layout_marginLeft="2dp"
-                            android:textColor="#6F6F6E"
-                            android:textSize="14sp"
-                            android:textStyle="bold"/>
-
-                        <TextView
-                            android:id="@+id/tv2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/youhavetopay2"
-                            android:layout_marginLeft="2dp"
-                            android:textSize="14sp"
-                            android:textColor="#6F6F6E"/>
-
-                        <TextView
-                            android:id="@+id/contentsize"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/youhavetopay3"
-                            android:layout_marginLeft="2dp"
-                            android:textSize="14sp"
-                            android:textColor="#6F6F6E"
-                            android:textStyle="bold"/>
 
                     </LinearLayout>
 

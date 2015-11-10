@@ -11,10 +11,7 @@
     <string name="titleLine">Titulo</string>
 
 
-    <string name="youhavetopay">Usted tiene que Pagar </string>
-    <string name="youhavetopay1"> 0,03 BTC</string>
-    <string name="youhavetopay2"> para subir</string>
-    <string name="youhavetopay3"> 230K</string>
+    <string name="you_have_to_pay">Tienes que pagar <b>%1$s</b> para publicar <b>%2$s</b></string>
 
     <string name="add">Añadir archivo</string>
     <string name="textview">Es necesario hacer un pago por la información que se registra en el BlockChain. Este pago depende de lo que ocupa de que la información que se intercambia.</string>
@@ -39,6 +36,10 @@
     <string name="whoweareentropy1">Somos una comunidad de personas vinculadas con el mundo virtual, que vive en un entorno rural.</string>
     <string name="whoweareentropy2">Nuestro objetivo es mejorar el mundo, el desarrollo de herramientas que satisfacen las necesidades reales, evitando al mismo tiempo la situación socio-económica y fiscal ya que se presume de que sea real.</string>
     <string name="whoweareentropy3">www.entropy-factory.com</string>
+    <string name="loading">Cargando…</string>
+    <string name="publish_dialog_message">Enviado petición, Por favor, espera…</string>
+    <string name="publish_dialopg_title">Enviando petición</string>
+    <string name="published">¡Perfecto! Hemos recibido el pago. Tus datos se publicarán en unos minutos.</string>
 
 
 </resources>

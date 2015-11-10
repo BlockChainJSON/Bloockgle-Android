@@ -34,11 +34,6 @@ import anonymous.line.bloockgle.request.PublishContentRequest;
 public class PostActivity extends Activity {
 
     private static final String TAG = "PostActivity";
-    private static final int FILE_SELECT_CODE = 1;
-    private File file;
-    private String fileBase64;
-    private Button button;
-    private String[] array;
     private ArrayList<BorderEditText> arrayList;
     private Type currentType;
     private EditText title;
@@ -53,8 +48,8 @@ public class PostActivity extends Activity {
 
         arrayList = new ArrayList<>();
 
-        array = new String[Type.values().length];
-        for (int x=0 ; x<array.length ; x++){
+        String[] array = new String[Type.values().length];
+        for (int x=0 ; x< array.length ; x++){
             array[x] = Type.values()[x].toUpperCase();
         }
 

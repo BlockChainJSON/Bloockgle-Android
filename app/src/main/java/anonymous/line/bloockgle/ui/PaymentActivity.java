@@ -9,6 +9,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -55,21 +57,6 @@ public class PaymentActivity extends Activity implements CheckLauncher.CheckHold
         price = bundle.getDouble("price");
         data = (HashMap<String, String>) bundle.getSerializable("data");
 
-//        String font_path_1 = "font/exobold.ttf";
-//        Typeface TF1 = Typeface.createFromAsset(getAssets(),font_path_1);
-//        pay.setTypeface(TF1);
-//        filesize.setTypeface(TF1);
-//        coinsreceived.setTypeface(TF1);
-//        textonegrita.setTypeface(TF1);
-//        receibedbtc.setTypeface(TF1);
-//
-//        String font_path = "font/exoregular.ttf";
-//        Typeface TF = Typeface.createFromAsset(getAssets(),font_path);
-//        tv1.setTypeface(TF);
-//        tv2.setTypeface(TF);
-//        tv3.setTypeface(TF);
-//        address.setTypeface(TF);
-
         ImageButton arrawpayment = (ImageButton) findViewById(R.id.arrawpayment);
         arrawpayment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,12 +100,9 @@ public class PaymentActivity extends Activity implements CheckLauncher.CheckHold
             }
         });
         qrCode.setImageBitmap(getQrBitmap());
-        TextView pay = (TextView) findViewById(R.id.pay1);
+        TextView pay = (TextView) findViewById(R.id.to_pay);
+        pay.setText(getPayString(priceBtc.toFriendlyString(), getContentSize() + "Kb"));
 
-        pay.setText(priceBtc.toFriendlyString());
-
-        TextView contentsize = (TextView) findViewById(R.id.contentsize);
-        contentsize.setText(getContentSize() + "Kb");
         TextView address = (TextView) findViewById(R.id.address);
         address.setText(this.address);
         address.setOnClickListener(new View.OnClickListener() {
@@ -131,6 +115,12 @@ public class PaymentActivity extends Activity implements CheckLauncher.CheckHold
         coinsreceived.setText(String.format(
                 "%1$s / %2$s", BitCoin.valueOf(0L).toFriendlyString(), priceBtc.toFriendlyString()));
 
+    }
+
+    private Spanned getPayString(String amount, String size) {
+        String res = String.format(getString(R.string.you_have_to_pay), amount, size);
+
+        return Html.fromHtml(res);
     }
     @Override
     public void onPause() {
@@ -178,6 +168,7 @@ public class PaymentActivity extends Activity implements CheckLauncher.CheckHold
                 "%1$s / %2$s", BitCoin.valueOf(received).toFriendlyString(), BitCoin.valueOf(price).toFriendlyString()));
         if (paymentStatus.equals("ok")){
             checkLauncher.cancel();
+            Toast.makeText(this, R.string.published, Toast.LENGTH_SHORT).show();
         }
     }
 }
