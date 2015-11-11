@@ -5,7 +5,8 @@ package anonymous.line.bloockgle.timeline;
  */
 public interface TimeLine {
 
-    void addPage(int page);
-    int currentPage();
+    void onTimeLine(TimeLineItem timeLineItem, boolean first, boolean last);
+    void onError(String errorMessage);
+    void more();
     boolean isLoading();
 }

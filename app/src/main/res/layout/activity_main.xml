@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -51,7 +52,7 @@
                 android:background="@drawable/edit_text_light" />
 
                 <ImageView
-                    android:id="@+id/buscar"
+                    android:id="@+id/search_button"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -98,7 +99,8 @@
             android:background="@color/background_color"
             android:orientation="vertical"
             android:id="@+id/loader_layout"
-            android:gravity="center">
+            android:gravity="center"
+            android:visibility="visible">
 
             <ProgressBar
                 android:id="@+id/loader"
@@ -110,10 +112,33 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/loading"
-                android:id="@+id/textView"
                 android:gravity="center_horizontal"
                 android:paddingTop="20dp" />
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.75"
+            android:background="@color/background_color"
+            android:orientation="vertical"
+            android:id="@+id/no_data_layout"
+            android:gravity="center"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_no_data" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/no_data"
+                android:gravity="center_horizontal"
+                android:paddingTop="20dp" />
         </LinearLayout>
 
     </LinearLayout>

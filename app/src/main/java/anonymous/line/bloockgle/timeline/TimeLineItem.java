@@ -15,6 +15,7 @@ public class TimeLineItem  {
 
     private static final String TAG = "TimeLineItem";
     private HashMap<String, String> content;
+    private boolean fake = false;
 
     public TimeLineItem (JSONObject jsonObject, String reference){
         content = new HashMap<>();
@@ -25,7 +26,6 @@ public class TimeLineItem  {
             while (keys.hasNext()){
                 String key = keys.next();
                 String value = jsonObject.getString(key);
-                Log.e(TAG, key + ": " + value);
                 content.put(key, value);
             }
         } catch (JSONException e){
@@ -35,6 +35,7 @@ public class TimeLineItem  {
 
     private TimeLineItem(HashMap<String, String> content) {
         this.content = content;
+        this.fake = true;
     }
 
     public HashMap<String, String> getContent(){
@@ -75,6 +76,10 @@ public class TimeLineItem  {
 
     public Uri getBitcoinUri() {
         return Uri.parse("bitcoin:" + get("address"));
+    }
+
+    public boolean isFake() {
+        return fake;
     }
 
     public static TimeLineItem fake() {

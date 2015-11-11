@@ -4,31 +4,24 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
-import com.chip_chap.services.asynchttp.net.ApiRequester;
+
 import com.jpardogo.android.googleprogressbar.library.FoldingCirclesDrawable;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
+import java.util.List;
 
 import anonymous.line.bloockgle.R;
+import anonymous.line.bloockgle.request.TimeLineRequestManager;
 import anonymous.line.bloockgle.timeline.TimeLine;
 import anonymous.line.bloockgle.timeline.TimeLineAdapter;
 import anonymous.line.bloockgle.timeline.TimeLineItem;
-import anonymous.line.bloockgle.handler.ErrorHandler;
-import anonymous.line.bloockgle.handler.SilentApiHandler;
-import anonymous.line.bloockgle.request.GetDataRequest;
-import anonymous.line.bloockgle.request.GetTimeLineRequest;
 
 /**
  * Created by Mr.Marshall on 23/09/2015.
@@ -37,43 +30,65 @@ public class MainActivity extends Activity implements TimeLine{
 
     private static final String TAG = "MainActivity";
 
+    private static final int LIST = 0;
+    private static final int LOADER = 1;
+    private static final int NO_DATA = 2;
+
     private TimeLineAdapter timeLineAdapter;
-    private ArrayList<TimeLineItem> timeLineItems;
-    private EditText editTextBuscar;
+    private List<TimeLineItem> timeLineItems;
+    private EditText searchEditText;
     private View loaderLayout;
     private View listLayout;
-    private int currentPage = 1;
+    private View noDataLayout;
     private boolean isLoading = true;
+    private TimeLineRequestManager requestManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        editTextBuscar = (EditText) findViewById(R.id.edittext);
+        searchEditText = (EditText) findViewById(R.id.edittext);
         loaderLayout = findViewById(R.id.loader_layout);
         listLayout = findViewById(R.id.list_layout);
-
-        final View buscar = findViewById(R.id.buscar);
-        buscar.setOnClickListener(new View.OnClickListener() {
+        noDataLayout = findViewById(R.id.no_data_layout);
+        final View searchButton = findViewById(R.id.search_button);
+        searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Recoger el texto del edittext
-                final String searchTXT = editTextBuscar.getText().toString();
-                if (!searchTXT.isEmpty()){
+                final String searchTXT = searchEditText.getText().toString();
+                if (!searchTXT.isEmpty()) {
                     clearData();
-                    new ApiRequester(new GetTimeLineRequest("findword", searchTXT), new SilentApiHandler() {
-                        @Override
-                        public void onOkResponse(JSONObject jsonObject) throws JSONException {
-                            getReferenceData(jsonObject);
-                        }
-
-                        @Override
-                        public void onErrorResponse(String errorResponse) {
-
-                        }
-                    }).execute();
+                    requestManager.search(searchTXT);
                 }
+            }
+        });
+
+        searchEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (charSequence.toString().isEmpty()) {
+                    clearData();
+                    timeLineItems = requestManager.getTimeLineItemList();
+                    if (timeLineItems.size() == 0) {
+                        requestManager.page(requestManager.currentPage());
+                        initializedListView(false, false);
+                    } else {
+                        initializedListView(false, true);
+                    }
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
             }
         });
 
@@ -94,20 +109,32 @@ public class MainActivity extends Activity implements TimeLine{
             }
         });
 
-        addPage(1);
+        requestManager = new TimeLineRequestManager(this);
+        requestManager.page(1);
+
         ProgressBar loaderView = (ProgressBar) findViewById(R.id.loader);
         Drawable circleDrawable = new FoldingCirclesDrawable.Builder(this).colors(getCircleColors()).build();
         loaderView.setIndeterminateDrawable(circleDrawable);
 
     }
 
-    private void showLoader(boolean show) {
-        if (show) {
-            loaderLayout.setVisibility(View.VISIBLE);
-            listLayout.setVisibility(View.GONE);
-        } else {
-            loaderLayout.setVisibility(View.GONE);
-            listLayout.setVisibility(View.VISIBLE);
+    private void showResultLayout(int layout) {
+        switch (layout) {
+            case LIST:
+                loaderLayout.setVisibility(View.GONE);
+                noDataLayout.setVisibility(View.GONE);
+                listLayout.setVisibility(View.VISIBLE);
+                break;
+            case LOADER:
+                loaderLayout.setVisibility(View.VISIBLE);
+                noDataLayout.setVisibility(View.GONE);
+                listLayout.setVisibility(View.GONE);
+                break;
+            case NO_DATA:
+                loaderLayout.setVisibility(View.GONE);
+                noDataLayout.setVisibility(View.VISIBLE);
+                listLayout.setVisibility(View.GONE);
+                break;
         }
     }
 
@@ -119,68 +146,33 @@ public class MainActivity extends Activity implements TimeLine{
     }
 
     @Override
-    public void addPage(int currentPage) {
-        this.currentPage = currentPage;
-        getTimeLine();
+    public void onTimeLine(TimeLineItem item, boolean first, boolean last) {
+        if (requestManager.isNormalRequest()) {
+            timeLineItems = requestManager.getTimeLineItemList();
+        } else {
+            if (timeLineItems == null) {
+                timeLineItems = new ArrayList<>();
+            }
+
+            timeLineItems.add(item);
+        }
+
+        initializedListView(first, last);
     }
 
     @Override
-    public int currentPage() {
-        return currentPage;
+    public void onError(String errorMessage) {
+        showResultLayout(NO_DATA);
+    }
+
+    @Override
+    public void more() {
+        requestManager.newPage();
     }
 
     @Override
     public boolean isLoading() {
         return isLoading;
-    }
-
-    private void getTimeLine() {
-
-        new ApiRequester(new GetTimeLineRequest(currentPage), new ErrorHandler(){
-
-            @Override
-            public void onOkResponse(JSONObject jsonObject) throws JSONException {
-                getReferenceData(jsonObject);
-            }
-
-            @Override
-            public void onErrorResponse(int code, String errorResponse) {
-                getTimeLine();
-            }
-        }).execute();
-    }
-
-    public void getReferenceData (final JSONObject jsonObject) throws JSONException {
-        if (timeLineItems == null) {
-            timeLineItems = new ArrayList<>();
-        }
-
-        final JSONArray content = jsonObject.getJSONArray("content");
-        Log.e("Item", content.length()+"");
-        for (int x = 0; x < content.length(); x++) {
-
-            final int i = x;
-            JSONObject item = content.getJSONObject(x);
-            final String reference = item.getString("ref");
-            new ApiRequester(new GetDataRequest(reference), new ErrorHandler() {
-                @Override
-                public void onOkResponse(JSONObject jsonObject) throws JSONException {
-                    TimeLineItem timeLineItem = new TimeLineItem(jsonObject, reference);
-                    timeLineItems.add(timeLineItem);
-                    initializedListView((i == 0), (i == content.length()-1));
-                }
-
-                @Override
-                public void onErrorResponse(int code, String errorResponse) {
-                    initializedListView((i == 0), (i == content.length()-1));
-                    try {
-                        getReferenceData(jsonObject);
-                    } catch (JSONException e) {
-                        onError(e);
-                    }
-                }
-            }).execute();
-        }
     }
 
     public void clearData() {
@@ -189,13 +181,12 @@ public class MainActivity extends Activity implements TimeLine{
             timeLineAdapter.notifyDataSetChanged();
         }
 
-        showLoader(true);
+        showResultLayout(LOADER);
     }
 
     public void initializedListView(boolean isFirst, boolean isLast){
         Log.e(TAG, "first: " + isFirst + ", last: " + isLast);
-        showLoader(false);
-        if (!isFirst) {
+        if (!isFirst && timeLineItems.size() >= 2 && timeLineItems.get(timeLineItems.size() - 2).isFake()) {
             timeLineItems.remove(timeLineItems.size() - 2);
         }
         isLoading = !isLast;
@@ -210,6 +201,12 @@ public class MainActivity extends Activity implements TimeLine{
         timeLineAdapter.notifyDataSetChanged();
         listView.smoothScrollToPosition(scrollPosition);
         listView.setVerticalScrollbarPosition(scrollPosition);
+
+        if (timeLineItems.size() <= 1) {
+            showResultLayout(NO_DATA);
+        } else {
+            showResultLayout(LIST);
+        }
     }
 
 }

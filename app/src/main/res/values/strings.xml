@@ -51,5 +51,6 @@ set of the same.</string>
     <string name="copy_address">Copy address</string>
     <string name="btc_address_copied">Bitcoin address copied!</string>
     <string name="about">About</string>
+    <string name="no_data">Not found publications</string>
 
 </resources>

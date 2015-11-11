@@ -54,6 +54,7 @@
     <string name="donate">Donar</string>
     <string name="btc_address_copied">¡Direccion bitcoin copiada!</string>
     <string name="about">Sobre Bloockgle</string>
+    <string name="no_data">No se encontraron publicaciones</string>
 
 
 </resources>

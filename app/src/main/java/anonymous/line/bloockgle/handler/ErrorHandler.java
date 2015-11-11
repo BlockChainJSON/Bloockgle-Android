@@ -11,6 +11,7 @@ import org.json.JSONObject;
 public abstract class ErrorHandler implements ApiHandler {
 
     private static final String TAG = "ErrorHandler";
+    public static final int EMPTY_RESPONSE_CODE = -1;
 
     public abstract void onOkResponse(JSONObject jsonObject) throws JSONException;
 
@@ -35,6 +36,7 @@ public abstract class ErrorHandler implements ApiHandler {
     public void onError(Exception e) {
         if (e instanceof JSONException) {
             e.printStackTrace();
+            onErrorResponse(EMPTY_RESPONSE_CODE, e.getMessage());
         } else {
             onErrorResponse(0, e.getMessage());
         }

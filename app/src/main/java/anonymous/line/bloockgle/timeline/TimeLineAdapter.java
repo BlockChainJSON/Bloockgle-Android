@@ -108,7 +108,7 @@ public class TimeLineAdapter extends ArrayAdapter<TimeLineItem> {
                 public void onClick(View view) {
                     moreLayout.setVisibility(View.GONE);
                     loaderLayout.setVisibility(View.VISIBLE);
-                    timeLine.addPage(timeLine.currentPage()+1);
+                    timeLine.more();
                 }
             });
         }
