@@ -22,16 +22,13 @@ public class TimeLineRequestManager {
 
     private static final String TAG = "TLRManager";
 
-    private static final int TL_REQUESTER = 0;
-    private static final int TL_SEARCH = 1;
-    private static final int TL_REFERENCES = 2;
-
     private ApiRequester tlRequester;
     private ApiRequester tlSearch;
-    private ApiRequester tlReferences;
     private TimeLine timeLine;
     private int currentRequest = -1;
-    private int currentPage;
+    private int currentPage = 1;
+    private int currentSearchPage = 1;
+    private String toSearch = "";
     private List<TimeLineItem> timeLineItemList;
 
     public TimeLineRequestManager(TimeLine timeLine) {
@@ -50,7 +47,7 @@ public class TimeLineRequestManager {
         tlRequester = new ApiRequester(new GetTimeLineRequest(page), new ErrorHandler() {
             @Override
             public void onOkResponse(JSONObject jsonObject) throws JSONException {
-                getData(jsonObject);
+                getData(jsonObject, false);
             }
 
             @Override
@@ -63,13 +60,13 @@ public class TimeLineRequestManager {
 
             }
         });
-        cancelCurrentRequests(TL_REQUESTER);
+        cancelCurrentRequests(TimeLine.TL_REQUESTER);
         tlRequester.execute();
 
     }
 
-    public void newPage() {
-        page(currentPage++);
+    public void page() {
+        page(++currentPage);
     }
 
     public List<TimeLineItem> getTimeLineItemList() {
@@ -80,15 +77,16 @@ public class TimeLineRequestManager {
         return currentPage;
     }
 
-    public boolean isNormalRequest() {
-        return currentRequest == TL_REQUESTER;
-    }
-
     public void search(final String word) {
-        tlSearch = new ApiRequester(new GetTimeLineRequest("findword", word), new ErrorHandler() {
+        if (!word.equals(toSearch)) {
+            toSearch = word;
+            currentSearchPage = 1;
+        }
+        tlSearch = new ApiRequester(new GetTimeLineRequest("findword", word, currentSearchPage), new ErrorHandler() {
             @Override
             public void onOkResponse(JSONObject jsonObject) throws JSONException {
-                getData(jsonObject);
+                getData(jsonObject, true);
+                currentSearchPage++;
             }
 
             @Override
@@ -101,49 +99,67 @@ public class TimeLineRequestManager {
 
             }
         });
-        cancelCurrentRequests(TL_SEARCH);
+        cancelCurrentRequests(TimeLine.TL_SEARCH);
         tlSearch.execute();
     }
 
-    public void getData(final JSONObject jsonObject) throws JSONException {
+    public void search() {
+        search(toSearch);
+    }
+
+    public void getData(final JSONObject jsonObject, boolean isSearch) throws JSONException {
 
         final JSONArray content = jsonObject.getJSONArray("content");
         Log.e("Item", content.length() + "");
+        TimeLineItem timeLineItem;
         for (int x = 0; x < content.length(); x++) {
-
-            JSONObject item = content.getJSONObject(x);
-            final String reference = item.getString("ref");
-
-            JSONObject data;
             try {
+                boolean first = (x == 0);
+                boolean last = (x == (content.length() -1));
+                Log.e(TAG, "first: " + first + ", last: " + last + ", x = " + x);
+
+                JSONObject item = content.getJSONObject(x);
+                final String reference = item.getString("ref");
+
+                JSONObject data;
+
                 data = new JSONObject(item.getString("content"));
+                timeLineItem = new TimeLineItem(data, reference);
+                timeLineItem.setFromSearch(isSearch);
+                timeLineItem.setFirst(first);
+                timeLineItem.setLast(false);
+                timeLine.onTimeLine(timeLineItem);
+
+                if (currentRequest == TimeLine.TL_REQUESTER) {
+                    timeLineItemList.add(timeLineItem);
+                }
             } catch (Exception e) {
-                continue;
-            }
-            TimeLineItem timeLineItem = new TimeLineItem(data, reference);
-
-            timeLine.onTimeLine(timeLineItem, (x == 0), (x == content.length() - 1));
-
-            if (currentRequest == TL_REQUESTER) {
-                timeLineItemList.add(timeLineItem);
+                e.printStackTrace();
             }
         }
+
+        timeLineItem = TimeLineItem.fake();
+        timeLineItem.setFromSearch(isSearch);
+        timeLineItem.setLast(true);
+
+        timeLine.onTimeLine(timeLineItem);
+        currentRequest = TimeLine.NO_REQUEST;
     }
 
     private void cancelCurrentRequests(int newRequest) {
-        if (newRequest != TL_REFERENCES) {
+        if (newRequest != TimeLine.TL_REFERENCES) {
             this.currentRequest = newRequest;
         }
 
         switch (newRequest) {
-            case TL_REFERENCES:
+            case TimeLine.TL_REFERENCES:
                 cancel(tlRequester, tlSearch);
                 break;
-            case TL_REQUESTER:
-                cancel(tlSearch, tlReferences);
+            case TimeLine.TL_REQUESTER:
+                cancel(tlSearch);
                 break;
-            case TL_SEARCH:
-                cancel(tlRequester, tlReferences);
+            case TimeLine.TL_SEARCH:
+                cancel(tlRequester);
                 break;
         }
     }
@@ -151,9 +167,13 @@ public class TimeLineRequestManager {
     private void cancel(ApiRequester... requesters) {
         for (ApiRequester r : requesters) {
             if (r != null) {
-                r.cancel(false);
+                r.cancel(true);
             }
         }
+    }
+
+    public boolean isRunning() {
+        return currentRequest != TimeLine.NO_REQUEST;
     }
 
 }

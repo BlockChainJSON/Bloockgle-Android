@@ -36,7 +36,7 @@ public class BasicApiRequest implements ApiRequest {
 
     @Override
     public String getURL() {
-        return "http://experiments.entropy-factory.com/api.php";
+        return "http://bloockgle.com/api.php";
     }
 
     @Override

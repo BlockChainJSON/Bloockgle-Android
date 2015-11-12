@@ -50,9 +50,11 @@ public class TimeLineAdapter extends ArrayAdapter<TimeLineItem> {
 
     @Override
     public View getView(int position, View view, ViewGroup viewGroup){
+        final TimeLineItem timeLineItem = getItem(position);
 
-        if (position < getCount() -1) {
-            final TimeLineItem timeLineItem = getItem(position);
+        Log.e(TAG, "Item is fake: " + timeLineItem.isFake());
+        if (!timeLineItem.isFake()) {
+
 
             ViewHolder holder;
 
@@ -102,17 +104,24 @@ public class TimeLineAdapter extends ArrayAdapter<TimeLineItem> {
             if (timeLine.isLoading()) {
                 moreLayout.setVisibility(View.GONE);
                 loaderLayout.setVisibility(View.VISIBLE);
+            } else {
+                moreLayout.setVisibility(View.VISIBLE);
+                loaderLayout.setVisibility(View.GONE);
             }
             moreLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     moreLayout.setVisibility(View.GONE);
                     loaderLayout.setVisibility(View.VISIBLE);
-                    timeLine.more();
+                    if(timeLineItem.isFromSearch()) {
+                        timeLine.more(TimeLine.TL_SEARCH);
+                    } else {
+                        timeLine.more(TimeLine.TL_REQUESTER);
+                    }
+
                 }
             });
         }
-
 
         return view;
     }

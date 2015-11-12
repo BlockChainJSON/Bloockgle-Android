@@ -16,6 +16,9 @@ public class TimeLineItem  {
     private static final String TAG = "TimeLineItem";
     private HashMap<String, String> content;
     private boolean fake = false;
+    private boolean fromSearch = false;
+    private boolean last = false;
+    private boolean first = false;
 
     public TimeLineItem (JSONObject jsonObject, String reference){
         content = new HashMap<>();
@@ -86,4 +89,27 @@ public class TimeLineItem  {
         return new TimeLineItem(new HashMap<String, String>());
     }
 
+    public boolean isFromSearch() {
+        return fromSearch;
+    }
+
+    public void setFromSearch(boolean fromSearch) {
+        this.fromSearch = fromSearch;
+    }
+
+    public boolean isLast() {
+        return last;
+    }
+
+    public void setLast(boolean last) {
+        this.last = last;
+    }
+
+    public boolean isFirst() {
+        return first;
+    }
+
+    public void setFirst(boolean first) {
+        this.first = first;
+    }
 }

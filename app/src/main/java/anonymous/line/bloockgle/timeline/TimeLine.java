@@ -5,8 +5,12 @@ package anonymous.line.bloockgle.timeline;
  */
 public interface TimeLine {
 
-    void onTimeLine(TimeLineItem timeLineItem, boolean first, boolean last);
+    static final int NO_REQUEST = -1;
+    static final int TL_REQUESTER = 0;
+    static final int TL_SEARCH = 1;
+    static final int TL_REFERENCES = 2;
+    void onTimeLine(TimeLineItem timeLineItemt);
     void onError(String errorMessage);
-    void more();
+    void more(int request);
     boolean isLoading();
 }

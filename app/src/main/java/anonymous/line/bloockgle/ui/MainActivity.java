@@ -8,6 +8,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -40,8 +41,8 @@ public class MainActivity extends Activity implements TimeLine{
     private View loaderLayout;
     private View listLayout;
     private View noDataLayout;
-    private boolean isLoading = true;
     private TimeLineRequestManager requestManager;
+    private boolean removeFake = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +62,11 @@ public class MainActivity extends Activity implements TimeLine{
                 if (!searchTXT.isEmpty()) {
                     clearData();
                     requestManager.search(searchTXT);
+                    InputMethodManager inputManager = (InputMethodManager)
+                            getSystemService(INPUT_METHOD_SERVICE);
+
+                    inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                            InputMethodManager.HIDE_NOT_ALWAYS);
                 }
             }
         });
@@ -76,13 +82,17 @@ public class MainActivity extends Activity implements TimeLine{
                 if (charSequence.toString().isEmpty()) {
                     clearData();
                     timeLineItems = requestManager.getTimeLineItemList();
+
                     if (timeLineItems.size() == 0) {
                         requestManager.page(requestManager.currentPage());
-                        initializedListView(false, false);
+                        showResultLayout(LOADER);
                     } else {
-                        initializedListView(false, true);
+                        showResultLayout(LIST);
+                        TimeLineItem ti = TimeLineItem.fake();
+                        ti.setFirst(false);
+                        ti.setLast(true);
+                        onTimeLine(ti);
                     }
-
                 }
             }
 
@@ -145,19 +155,40 @@ public class MainActivity extends Activity implements TimeLine{
                 getResources().getColor(R.color.violet)};
     }
 
-    @Override
-    public void onTimeLine(TimeLineItem item, boolean first, boolean last) {
-        if (requestManager.isNormalRequest()) {
-            timeLineItems = requestManager.getTimeLineItemList();
-        } else {
-            if (timeLineItems == null) {
-                timeLineItems = new ArrayList<>();
-            }
+    private void removeFake() {
+        if (removeFake && timeLineItems.size() >= 2) {
+            timeLineItems.remove(timeLineItems.size() -1);
+        }
+    }
 
-            timeLineItems.add(item);
+    @Override
+    public void onTimeLine(TimeLineItem item) {
+        if (timeLineItems == null) {
+            timeLineItems = new ArrayList<>();
         }
 
-        initializedListView(first, last);
+        Log.e(TAG, "is fake: " + item.isFake());
+        removeFake();
+        removeFake = false;
+
+        timeLineItems.add(item);
+
+        refresh();
+
+    }
+
+    private void refresh() {
+        ListView listView = (ListView) findViewById(R.id.list_item);
+
+        timeLineAdapter = (new TimeLineAdapter(this, R.layout.time_line_row, timeLineItems, this));
+        listView.setAdapter(timeLineAdapter);
+        timeLineAdapter.notifyDataSetChanged();
+
+        if (timeLineItems.size() <= 1) {
+            showResultLayout(NO_DATA);
+        } else {
+            showResultLayout(LIST);
+        }
     }
 
     @Override
@@ -166,13 +197,20 @@ public class MainActivity extends Activity implements TimeLine{
     }
 
     @Override
-    public void more() {
-        requestManager.newPage();
+    public void more(int request) {
+        if (request == TimeLine.TL_REQUESTER) {
+            requestManager.page();
+        } else {
+            requestManager.search();
+        }
+
+        //REMOVE FAKE
+        removeFake = true;
     }
 
     @Override
     public boolean isLoading() {
-        return isLoading;
+        return requestManager.isRunning();
     }
 
     public void clearData() {
@@ -182,31 +220,6 @@ public class MainActivity extends Activity implements TimeLine{
         }
 
         showResultLayout(LOADER);
-    }
-
-    public void initializedListView(boolean isFirst, boolean isLast){
-        Log.e(TAG, "first: " + isFirst + ", last: " + isLast);
-        if (!isFirst && timeLineItems.size() >= 2 && timeLineItems.get(timeLineItems.size() - 2).isFake()) {
-            timeLineItems.remove(timeLineItems.size() - 2);
-        }
-        isLoading = !isLast;
-        timeLineItems.add(TimeLineItem.fake());
-
-        ListView listView = (ListView) findViewById(R.id.list_item);
-
-        int scrollPosition = listView.getVerticalScrollbarPosition();
-        Log.e(TAG, "Position: " + scrollPosition);
-        timeLineAdapter = (new TimeLineAdapter(this, R.layout.time_line_row, timeLineItems, this));
-        listView.setAdapter(timeLineAdapter);
-        timeLineAdapter.notifyDataSetChanged();
-        listView.smoothScrollToPosition(scrollPosition);
-        listView.setVerticalScrollbarPosition(scrollPosition);
-
-        if (timeLineItems.size() <= 1) {
-            showResultLayout(NO_DATA);
-        } else {
-            showResultLayout(LIST);
-        }
     }
 
 }

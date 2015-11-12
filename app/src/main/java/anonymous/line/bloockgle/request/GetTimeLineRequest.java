@@ -11,9 +11,10 @@ public class GetTimeLineRequest extends BasicApiRequest {
     private String word;
     private int page = 1;
 
-    public GetTimeLineRequest (String action, String word){
+    public GetTimeLineRequest (String action, String word, int page){
         this.word = word;
         this.action = action;
+        this.page = page;
     }
 
     public GetTimeLineRequest (int page){
@@ -27,9 +28,10 @@ public class GetTimeLineRequest extends BasicApiRequest {
             params.put("find", word);
             params.put("action", "findword");
         } else {
-            params.put("page", String.valueOf(page));
             params.put("action", action);
         }
+
+        params.put("page", String.valueOf(page));
 
         return params;
     }
