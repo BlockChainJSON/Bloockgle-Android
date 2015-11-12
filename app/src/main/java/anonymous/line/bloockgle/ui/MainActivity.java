@@ -77,6 +77,7 @@ public class MainActivity extends Activity implements TimeLine{
 
             }
 
+
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (charSequence.toString().isEmpty()) {
