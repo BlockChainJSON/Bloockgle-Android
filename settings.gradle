@@ -1,1 +1,1 @@
-include ':app'
+include ':app', ':adsSRO-PT-0.3'

@@ -22,6 +22,7 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile project(':adsSRO-PT-0.3')
     compile 'net.glxn.qrgen:android:2.0'
     compile 'com.android.support:appcompat-v7:22.0.0'
     compile 'com.jpardogo.googleprogressbar:library:1.2.0'
