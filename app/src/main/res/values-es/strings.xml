@@ -40,7 +40,7 @@
     <string name="publish_dialog_message">Enviado petición. Por favor, espera…</string>
     <string name="publish_dialopg_title">Enviando petición</string>
     <string name="published">¡Perfecto! Hemos recibido el pago. Tus datos se publicarán en unos minutos.</string>
-    <string name="address_wallet_donations">Añade dirección bitcoin para donaciones</string>
+    <string name="address_wallet_donations">Añade <q>                                   </q>ección bitcoin para donaciones</string>
     <string name="details">Detalles:</string>
     <string name="reference">Referencia:</string>
     <string name="see_more">Ver más</string>

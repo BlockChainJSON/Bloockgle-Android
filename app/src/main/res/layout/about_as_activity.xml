@@ -80,7 +80,7 @@
                         android:layout_weight="0.7"
                         android:orientation="vertical"
                         android:padding="16dp"
-                        android:background="#ffffff">
+                        android:background="@color/white">
 
                         <TextView
                             android:layout_width="match_parent"
